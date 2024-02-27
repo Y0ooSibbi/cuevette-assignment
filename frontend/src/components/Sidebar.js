@@ -1,37 +1,53 @@
-// components/Sidebar.js
-import React from 'react';
-import { SidebarData } from './SidebarData';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { getInitials } from './utils'; // Import getInitials function
 
-const getInitials = (name) => {
-    // Split the name into words
-    const words = name.split(' ');
-    // Get the first letter of each word
-    const initials = words.map(word => word.charAt(0).toUpperCase()).join('');
-    // Return only the first two characters
-    return initials.substring(0, 2);
+const Sidebar = ({ onItemClick }) => {
+  const [groups, setGroups] = useState([]);
+  const [selectedItemId, setSelectedItemId] = useState(null); // State to track the ID of the selected item
+
+  useEffect(() => {
+    // Fetch groups data when component mounts
+    axios.get('http://localhost:3000/api/groups')
+      .then(response => {
+        // Set the fetched groups data to state
+        setGroups(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching groups:', error);
+      });
+  }, []); // Empty dependency array to fetch data only once when component mounts
+
+  const handleItemClick = (group) => {
+    // Set the selected item ID
+    setSelectedItemId(group._id);
+    // Call the onItemClick function passed as prop
+    onItemClick(group);
   };
 
-
-const Sidebar = () => {
   return (
     <aside>
-    <div className="sidebar">
-      <div className="sidebar-header">
-        <h2 className="sidebar-title">Pocket Notes</h2>
+      <div className="sidebar">
+        <div className="sidebar-header">
+          <h2 className="sidebar-title">Pocket Notes</h2>
+        </div>
+        <ul className="sidebar-list">
+          {groups.map((group, index) => (
+            <li
+              key={index}
+              onClick={() => handleItemClick(group)}
+              className={`sidebar-item ${selectedItemId === group._id ? 'selected' : ''}`}
+            >
+              {/* Render group data */}
+              <div className="icon" style={{ background: group.color }}>{getInitials(group.title)}</div>
+              <span>{group.title}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul className="sidebar-list">
-        {SidebarData.map((item, index) => (
-          <li key={index} onClick={item.onClick} className="sidebar-item">
-            <div className="icon">{getInitials(item.title)}</div>
-            <span>{item.title}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
       <div className="sticky-button">+</div>
-  </aside>
-    
+    </aside>
   );
-}
+};
 
 export default Sidebar;
