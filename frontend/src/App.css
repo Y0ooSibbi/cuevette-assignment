@@ -1,0 +1,84 @@
+.App{
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(218,229,245);
+  display: flex; /* Use flexbox to arrange sidebar and main page side by side */
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar{
+  height: 100vh;
+  width: 24vw;
+  background-color: white;
+  position: relative; /* Set position relative to contain absolutely positioned elements */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+.sidebar-header {
+  position: sticky; /* Make the title sticky */
+  display: flex;
+  width: 22vw;
+  top: 0; /* Stick to the top of the sidebar */
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  background-color: #fff; /* Add background color */
+  padding: 10px; /* Add padding */
+  z-index: 1; /* Ensure it stays above the content */
+}
+.sidebar-content {
+  flex: 1; /* Allow the content to expand to fill remaining space */
+  padding-top: 10px; /* Adjust padding to make space for the sticky title */
+}
+.sidebar-list {
+  list-style-type: none;
+}
+.icon {
+  width: 40px; /* Make the icon bigger */
+  height: 40px; /* Make the icon bigger */
+  border-radius: 50%;
+  background-color: #ccc;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.icon span {
+  font-size: 18px; /* Increase font size */
+  font-weight: bold;
+  color: #fff;
+}
+span {
+  font-size: 16px; /* Increase font size */
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 10px; /* Add padding to create space around the list items */
+  margin-bottom: 10px; /* Add margin-bottom to create space between the list items */
+}
+
+.sticky-button {
+  position: absolute; /* Position the button absolutely */
+  bottom: 5vh; /* Position it 20px from the bottom */
+  left: 17vw; /* Position it 20px from the right */
+  background-color: rgb(22,0,139); /* Set background color to blue */
+  width: 40px; /* Set width */
+  height: 40px; /* Set height */
+  padding: 10px;
+  border-radius: 50%; /* Make the button round */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; /* Change cursor to pointer on hover */
+  z-index: 1; /* Ensure it stays above the sidebar content */
+
+}
+
+.sticky-button:hover {
+  background-color: darkblue; /* Change background color on hover */
+}
