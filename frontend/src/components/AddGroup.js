@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { url } from './config';
 
 const colors = [
   { rgb: 'rgb(179,139,250)', label: 'Purple' },
@@ -32,7 +33,7 @@ const AddGroup = ({ onCreateGroup }) => {
 
   const handleCreateGroup = async () => {
     // Pass the new group data to the parent component
-    const response = await axios.post('http://localhost:3000/api/groups/add', {
+    const response = await axios.post(`${url}/api/groups/add`, {
         title: newGroupName,
         color: selectedColor
       });
@@ -78,7 +79,6 @@ const AddGroup = ({ onCreateGroup }) => {
               ))}
             </div>
             <button className='popup-button' onClick={handleCreateGroup}>Create</button>
-            {/* <button onClick={() => setShowPopup(false)}>Cancel</button> */}
           </div>
         </div>
       )}

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const groupRoutes = require('./routes/groupRoutes');
 const noteRoutes = require('./routes/noteRoutes');
 const config = require('./config');
-const cors = require('cors'); // Import the cors middleware
+const cors = require('cors');
 const groupController = require('./controllers/groupController');
 const Note = require('./models/Note')
 
@@ -15,7 +15,6 @@ app.post('/api/getNotes', async (req, res) => {
     try {
         // Extract the group ID from the request body
         const { groupId } = req.body;
-        console.log(groupId);
         // Fetch the notes for the specified group ID
         const notes = await Note.find({ groupId });
         console.log(notes);

@@ -2,31 +2,17 @@
 
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
+import { formatDate,formatDateToAMPM } from './utils';
+import { url } from './config';
+
 
 const Content = ({item }) => {
     const [notes, setNotes] = useState([]);
-
-    function formatDateToAMPM(timestamp) {
-      const date = new Date(timestamp);
-      const hours = date.getHours();
-      const minutes = date.getMinutes();
-      const ampm = hours >= 12 ? 'PM' : 'AM';
-      const formattedHours = hours % 12 || 12; // Convert midnight (0) to 12
-      const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-      const formattedTime = formattedHours + ':' + formattedMinutes + ' ' + ampm;
-      return formattedTime;
-    }
-
-    function formatDate(timestamp) {
-      const date = new Date(timestamp);
-      const options = { day: 'numeric', month: 'short', year: 'numeric' };
-      return date.toLocaleDateString('en-US', options);
-    }
     
     const handleFetchNotes = async () => {
         try {
           // Make a POST request to fetch notes for the specified group ID
-          const response = await axios.post('http://localhost:3000/api/getNotes', {
+          const response = await axios.post(`${url}/api/getNotes`, {
             groupId: item._id
           });
     

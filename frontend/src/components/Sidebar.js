@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getInitials } from './utils'; // Import getInitials function
+import { url } from './config';
 
 const Sidebar = ({ onItemClick }) => {
   const [groups, setGroups] = useState([]);
@@ -8,7 +9,7 @@ const Sidebar = ({ onItemClick }) => {
 
   useEffect(() => {
     // Fetch groups data when component mounts
-    axios.get('http://localhost:3000/api/groups')
+    axios.get(`${url}/api/groups`)
       .then(response => {
         // Set the fetched groups data to state
         setGroups(response.data);

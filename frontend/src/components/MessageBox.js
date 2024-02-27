@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import imageSrc from './send.png'; // Import your image file
+import { url } from './config';
+
 
 const MessageBox = ({ item }) => {
   const [message, setMessage] = useState('');
@@ -13,7 +15,7 @@ const MessageBox = ({ item }) => {
     if (!message) return;
     try {
       // Make a POST request to add a new note to the group
-      await axios.post('http://localhost:3000/api/notes/create', {
+      await axios.post(`${url}/api/notes/create`, {
         groupId: item._id,
         content: message
       });
